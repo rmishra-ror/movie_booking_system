@@ -11,3 +11,5 @@ Instuction:
 6) for debugging use `binding.pry` make sure you required the pkg `require 'pry-byebug'`
 
 NOTE: starter.rb is used to play with booking system with aweseom Command line UI interface which include multi select prompt slide to select no of seats 
+
+![demo](https://github.com/rmishra-ror/movie_booking_system/assets/12711305/6ed3335b-3ad3-451f-b373-46b2cb0f0361)
