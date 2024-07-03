@@ -1,0 +1,32 @@
+
+name: After Succefull Heroku Deployment
+
+on:
+  deployment_status:
+    types: [success]
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  HEROKU_APP_NAME: 'aqstaging-3'
+
+
+jobs:
+  fetch-metadata:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Fetch Heroku deployment versions
+      run: |
+        # Fetch app info to get the list of releases
+        releases=$(curl -n -X GET https://api.heroku.com/apps/$HEROKU_APP_NAME/releases \
+          -H "Accept: application/vnd.heroku+json; version=3" \
+          -H "Authorization: Bearer $HEROKU_API_KEY")
+
+        echo "Releases: $releases"
+
+        # Extract the version numbers
+        versions=$(echo $releases | jq '.[].version')
+        
+        echo "Deployment Versions: $versions"
